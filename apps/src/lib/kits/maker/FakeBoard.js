@@ -1,5 +1,6 @@
 /** @file Fake Maker Board for running Maker apps without a board attached. */
 import {EventEmitter} from 'events'; // provided by webpack's node-libs-browser
+import {J5_CONSTANTS} from './PlaygroundConstants';
 
 /**
  * Fake Maker Board for running Maker Toolkit apps without a board attached.
@@ -52,7 +53,24 @@ export default class FakeBoard extends EventEmitter {
       jsInterpreter.createGlobalProperty(constructorName, constructor);
     });
 
-    jsInterpreter.createGlobalProperty('component', {});
+    const components = {
+      board: {},
+      colorLeds: {},
+      led: {},
+      toggleSwitch: {},
+      buzzer: {},
+      soundSensor: {},
+      lightSensor: {},
+      tempSensor: {},
+      accelerometer: {},
+      buttonL: {},
+      buttonR: {},
+      ...J5_CONSTANTS,
+    };
+
+    Object.keys(components).forEach(componentName => {
+      jsInterpreter.createGlobalProperty(componentName, components[componentName]);
+    });
   }
 
   /**

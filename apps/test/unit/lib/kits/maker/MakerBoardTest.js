@@ -63,6 +63,8 @@ export function itImplementsTheMakerBoardInterface(BoardClass) {
      * @param {JSInterpreter} jsInterpreter
      */
     describe('installOnInterpreter(codegen, jsInterpreter)', () => {
+      const CONSTRUCTOR_COUNT = 13;
+      const COMPONENT_COUNT = 16;
       let codegen, interpreter;
 
       beforeEach(() => {
@@ -89,7 +91,7 @@ export function itImplementsTheMakerBoardInterface(BoardClass) {
           board.installOnInterpreter(codegen, interpreter);
         });
 
-        it('13 of them', () => {
+        it(`${CONSTRUCTOR_COUNT} of them`, () => {
           expect(codegen.customMarshalObjectList).to.have.length(13);
         });
 
@@ -114,6 +116,17 @@ export function itImplementsTheMakerBoardInterface(BoardClass) {
             expect(codegen.customMarshalObjectList.map(obj => obj.instance))
                 .to.include(interpreter.globalProperties[constructor]);
           });
+        });
+      });
+
+      describe('adds components', () => {
+        beforeEach(() => {
+          board.installOnInterpreter(codegen, interpreter);
+        });
+
+        it(`${COMPONENT_COUNT} of them`, () => {
+          expect(Object.keys(interpreter.globalProperties))
+              .to.have.length(CONSTRUCTOR_COUNT + COMPONENT_COUNT);
         });
       });
     });
