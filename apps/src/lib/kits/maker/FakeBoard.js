@@ -32,12 +32,25 @@ export default class FakeBoard extends EventEmitter {
    * @param {JSInterpreter} jsInterpreter
    */
   installOnInterpreter(codegen, jsInterpreter) {
-    let constructor;
-    for (let i = 0; i < 13; i++) {
-      constructor = function () {};
+    [
+      'Led',
+      'Board',
+      'RGB',
+      'Button',
+      'Switch',
+      'Piezo',
+      'Sensor',
+      'Thermometer',
+      'Pin',
+      'Accelerometer',
+      'Animation',
+      'Servo',
+      'TouchSensor',
+    ].forEach(constructorName => {
+      const constructor = function () {};
       codegen.customMarshalObjectList.push({instance: constructor});
-      jsInterpreter.createGlobalProperty('constructor'+i, constructor);
-    }
+      jsInterpreter.createGlobalProperty(constructorName, constructor);
+    });
 
     jsInterpreter.createGlobalProperty('component', {});
   }

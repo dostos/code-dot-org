@@ -1,5 +1,4 @@
 /** @file Exports a set of tests that verify the MakerBoard interface */
-import sinon from 'sinon';
 import {EventEmitter} from 'events'; // see node-libs-browser
 import {expect} from '../../../../util/configuredChai';
 
@@ -71,28 +70,50 @@ export function itImplementsTheMakerBoardInterface(BoardClass) {
           customMarshalObjectList: []
         };
         interpreter = {
-          createGlobalProperty: sinon.spy()
+          globalProperties: {},
+          createGlobalProperty: function (key, value) {
+            interpreter.globalProperties[key] = value;
+          }
         };
+
+        return board.connect();
       });
 
       it(`doesn't return anything`, () => {
-        return board.connect().then(() => {
-          const retVal = board.installOnInterpreter(codegen, interpreter);
-          expect(retVal).to.be.undefined;
-        });
+        const retVal = board.installOnInterpreter(codegen, interpreter);
+        expect(retVal).to.be.undefined;
       });
 
-      it('adds component constructors to the customMarshalObjectList', () => {
-        return board.connect().then(() => {
+      describe('adds component constructors', () => {
+        beforeEach(() => {
           board.installOnInterpreter(codegen, interpreter);
+        });
+
+        it('13 of them', () => {
           expect(codegen.customMarshalObjectList).to.have.length(13);
         });
-      });
 
-      it('adds component constructors as global properties on the interpreter', () => {
-        return board.connect().then(() => {
-          board.installOnInterpreter(codegen, interpreter);
-          expect(interpreter.createGlobalProperty).to.have.been.called;
+        [
+          'Led',
+          'Board',
+          'RGB',
+          'Button',
+          'Switch',
+          'Piezo',
+          'Sensor',
+          'Thermometer',
+          'Pin',
+          'Accelerometer',
+          'Animation',
+          'Servo',
+          'TouchSensor',
+        ].forEach(constructor => {
+          it(constructor, () => {
+            expect(interpreter.globalProperties).to.have.ownProperty(constructor);
+            expect(interpreter.globalProperties[constructor]).to.be.a('function');
+            expect(codegen.customMarshalObjectList.map(obj => obj.instance))
+                .to.include(interpreter.globalProperties[constructor]);
+          });
         });
       });
     });
