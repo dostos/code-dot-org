@@ -128,6 +128,29 @@ export function itImplementsTheMakerBoardInterface(BoardClass) {
           expect(Object.keys(interpreter.globalProperties))
               .to.have.length(CONSTRUCTOR_COUNT + COMPONENT_COUNT);
         });
+
+        [
+          'board',
+          'colorLeds',
+          'led',
+          'toggleSwitch',
+          'buzzer',
+          'soundSensor',
+          'lightSensor',
+          'tempSensor',
+          'accelerometer',
+          'buttonL',
+          'buttonR',
+          'INPUT',
+          'OUTPUT',
+          'ANALOG',
+          'PWM',
+          'SERVO',
+        ].forEach(componentName => {
+          it(componentName, () => {
+            expect(interpreter.globalProperties).to.have.ownProperty(componentName);
+          });
+        });
       });
     });
 
