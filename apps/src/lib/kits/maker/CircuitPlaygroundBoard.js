@@ -32,6 +32,8 @@ const J5_CONSTANTS = {
 /**
  * Controller interface for an Adafruit Circuit Playground board using
  * Circuit Playground Firmata firmware.
+ * @extends EventEmitter
+ * @implements MakerBoard
  */
 export default class CircuitPlaygroundBoard extends EventEmitter {
   constructor(portName) {
@@ -192,7 +194,7 @@ export default class CircuitPlaygroundBoard extends EventEmitter {
   }
 
   digitalRead(pin, callback) {
-    return this.fiveBoard_.digitalRead(pin, callback);
+    this.fiveBoard_.digitalRead(pin, callback);
   }
 
   analogWrite(pin, value) {
@@ -200,7 +202,7 @@ export default class CircuitPlaygroundBoard extends EventEmitter {
   }
 
   analogRead(pin, callback) {
-    return this.fiveBoard_.analogRead(pin, callback);
+    this.fiveBoard_.analogRead(pin, callback);
   }
 
   onBoardEvent(component, event, callback) {
