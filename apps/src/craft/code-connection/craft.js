@@ -7,8 +7,11 @@ import {Provider} from 'react-redux';
 import AppView from '../../templates/AppView';
 import CraftVisualizationColumn from './CraftVisualizationColumn';
 import {getStore} from '../../redux';
+import cc_client from './cc-client';
 
 const MEDIA_URL = '/blockly/media/craft/';
+
+var client = new cc_client(8080);
 
 /**
  * Create a namespace for the application.
@@ -123,27 +126,15 @@ Craft.executeUserCode = function () {
   let interpreter;
 
   const evalApiMethods = {
-    log: function (blockID, value) {
+    move: function (blockID, direction, callback) {
       studioApp().highlight(blockID);
-      console.log('Logged: ' + value);
-    },
-    prompt: function (blockID, callback) {
-      studioApp().highlight(blockID);
-      const value = prompt('Enter a value:');
-      setTimeout(() => {
-        callback(value);
-        interpreter.run();
-      }, 0);
-    },
-    delay: function (blockID, milliseconds, callback) {
-      studioApp().highlight(blockID);
-      setTimeout(() => {
+      client.async_command(`move?direction=${direction}`,(result)=>{
         callback();
         interpreter.run();
-      }, milliseconds);
+      },'success');
     }
   };
 
-  codegen.asyncFunctionList = [evalApiMethods.prompt, evalApiMethods.delay];
+  codegen.asyncFunctionList = [evalApiMethods.move];
   interpreter = codegen.evalWith(code, evalApiMethods);
 };

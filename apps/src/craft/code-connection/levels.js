@@ -8,14 +8,10 @@ function block(type) {
   return '<block type="' + type + '"></block>';
 }
 
-const log = craftBlock('log');
-const waitOneSecond = craftBlock('waitOneSecond');
-const callNativeAsync = craftBlock('callNativeAsync');
-
 module.exports = {
   'custom': {
     'requiredBlocks': [],
     'freePlay': false,
-    'toolbox': createToolbox(log + waitOneSecond + callNativeAsync + block('text'))
+    'toolbox': createToolbox(craftBlock('move'))
   }
 };
