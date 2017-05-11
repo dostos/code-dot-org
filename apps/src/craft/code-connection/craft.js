@@ -115,6 +115,8 @@ Craft.runButtonClick = function () {
   }
 
   studioApp().toggleRunReset('reset');
+  // Turn on call tracing
+  Blockly.mainBlockSpace.traceOn(true);
   studioApp().attempts++;
 
   Craft.executeUserCode();
