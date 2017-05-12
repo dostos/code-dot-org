@@ -50,37 +50,16 @@ export default class cc_client {
             url: `${this.baseUrl}${this.port}/${command}`,
             success: function (data) {
                 console.log(`Command : ${command} success result : ${data.toString()}`);
-                callback(JSON.parse(data)[key]);
+                if (key !== null) {
+                    callback(JSON.parse(data)[key]);
+                } else {
+                    callback();
+                }
             },
             error: function (jqxhr, textStatus, error) {
                 console.log(`Command : ${command} fail`, error);
                 callback(false);
             }
         });
-    }
-    /**
-     * Synchronous command that waits until getting a result from server
-     *
-     * @param {string} command - command name
-     * @param {string} key - key of the return value in returned json
-     * @returns - result
-     *
-     */
-    sync_command(command, key) {
-        var result;
-        $.ajax({
-            type: "GET",
-            url: `${this.baseUrl}${this.port}/${command}`,
-            async: false,
-            success: function (data) {
-                console.log(`Command : ${command} success result : ${data.toString()}`);
-                result = JSON.parse(data)[key];
-            },
-            error: function (jqxhr, textStatus, error) {
-                console.log(`Command : ${command} fail`, error);
-                result = false;
-            }
-        });
-        return result;
     }
 }
