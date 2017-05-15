@@ -1,22 +1,56 @@
 var i18n = require('./locale');
 
-//var decorations = ["acacia_door", "acacia_fence_gate", "anvil", "beacon", "bed", "birch_door", "birch_fence_gate", "black_glazed_terracotta", "blue_glazed_terracotta", "board", "bookshelf", "brewing_stand", "brown_glazed_terracotta", "brown_mushroom", "brown_mushroom_block", "cactus", "cake", "carpet", "cauldron", "chest", "coal_block", "cobblestone_wall", "concrete", "concretepowder", "crafting_table", "cyan_glazed_terracotta", "dark_oak_door", "dark_oak_fence_gate", "deadbush", "diamond_block", "double_plant", "dragon_egg", "emerald_block", "enchanting_table", "end_crystal", "end_portal_frame", "end_rod", "ender_chest", "fence", "fence_gate", "flower_pot", "frame", "furnace", "glass", "glass_pane", "glowstone", "gold_block", "grass_path", "gray_glazed_terracotta", "green_glazed_terracotta", "hay_block", "iron_bars", "iron_block", "iron_door", "iron_trapdoor", "jungle_door", "jungle_fence_gate", "ladder", "lapis_block", "leaves", "leaves2", "light_blue_glazed_terracotta", "lime_glazed_terracotta", "lit_pumpkin", "magenta_glazed_terracotta", "melon_block", "mob_spawner", "monster_egg", "nether_brick_fence", "noteblock", "orange_glazed_terracotta", "painting", "pink_glazed_terracotta", "pumpkin", "purple_glazed_terracotta", "red_flower", "red_glazed_terracotta", "red_mushroom", "red_mushroom_block", "redstone_block", "sapling", "sealantern", "shulker_box", "sign", "silver_glazed_terracotta", "skull", "slime", "snow_layer", "sponge", "spruce_door", "spruce_fence_gate", "stonecutter", "tallgrass", "trapdoor", "trapped_chest", "vine", "waterlily", "web", "white_glazed_terracotta", "wooden_door", "wool", "yellow_flower", "yellow_glazed_terracotta"];
+var blocks = ["air", "cobblestone", "stonebrick", "mossy_cobblestone", "planks", "brick_block", "stone", "dirt", "podzol", "grass", "mycelium", "clay", "hardened_clay", "stained_hardened_clay", "sandstone", "sand", "gravel", "log", "log2", "nether_brick", "soul_sand", "bedrock", "stone_stairs", "oak_stairs", "spruce_stairs", "birch_stairs", "jungle_stairs", "acacia_stairs", "dark_oak_stairs", "brick_stairs", "sandstone_stairs", "red_sandstone_stairs", "stone_brick_stairs", "nether_brick_stairs", "quartz_stairs", "purpur_stairs", "stone_slab", "wooden_slab", "stone_slab2", "quartz_block", "prismarine", "purpur_block", "coal_ore", "iron_ore", "gold_ore", "diamond_ore", "lapis_ore", "redstone_ore", "emerald_ore", "quartz_ore", "obsidian", "ice", "packed_ice", "snow", "end_bricks", "end_stone", "allow", "deny", "border_block", "netherbrick", "netherrack", "red_sandstone"];
 
-//var tools = ["activator_rail", "boat", "bow", "bucket", "camera", "chain_command_block", "chainmail_boots", "chainmail_chestplate", "chainmail_helmet", "chainmail_leggings", "chest_minecart", "clock", "command_block", "command_block_minecart", "comparator", "compass", "daylight_detector", "detector_rail", "diamond_axe", "diamond_boots", "diamond_chestplate", "diamond_helmet", "diamond_hoe", "diamond_leggings", "diamond_pickaxe", "diamond_shovel", "diamond_sword", "dispenser", "dropper", "elytra", "ender_eye", "ender_pearl", "fireball", "fishing_rod", "flint_and_steel", "golden_axe", "golden_boots", "golden_chestplate", "golden_helmet", "golden_hoe", "golden_leggings", "golden_pickaxe", "golden_rail", "golden_shovel", "golden_sword", "heavy_weighted_pressure_plate", "hopper", "hopper_minecart", "horsearmordiamond", "horsearmorgold", "horsearmoriron", "horsearmorleather", "iron_axe", "iron_boots", "iron_chestplate", "iron_helmet", "iron_hoe", "iron_leggings", "iron_pickaxe", "iron_shovel", "iron_sword", "lead", "leather_boots", "leather_chestplate", "leather_helmet", "leather_leggings", "lever", "light_weighted_pressure_plate", "minecart", "nametag", "observer", "piston", "portfolio", "rail", "redstone", "redstone_lamp", "redstone_torch", "repeater", "repeating_command_block", "saddle", "shears", "snowball", "spawn_egg", "sticky_piston", "stone_axe", "stone_button", "stone_hoe", "stone_pickaxe", "stone_pressure_plate", "stone_shovel", "stone_sword", "structure_block", "tnt", "tnt_minecart", "torch", "totem", "tripwire_hook", "wooden_axe", "wooden_button", "wooden_hoe", "wooden_pickaxe", "wooden_pressure_plate", "wooden_shovel", "wooden_sword"];
+var decorations = ["acacia_door", "acacia_fence_gate", "anvil", "beacon", "bed", "birch_door", "birch_fence_gate", "black_glazed_terracotta", "blue_glazed_terracotta", "board", "bookshelf", "brewing_stand", "brown_glazed_terracotta", "brown_mushroom", "brown_mushroom_block", "cactus", "cake", "carpet", "cauldron", "chest", "coal_block", "cobblestone_wall", "concrete", "concretepowder", "crafting_table", "cyan_glazed_terracotta", "dark_oak_door", "dark_oak_fence_gate", "deadbush", "diamond_block", "double_plant", "dragon_egg", "emerald_block", "enchanting_table", "end_crystal", "end_portal_frame", "end_rod", "ender_chest", "fence", "fence_gate", "flower_pot", "frame", "furnace", "glass", "glass_pane", "glowstone", "gold_block", "grass_path", "gray_glazed_terracotta", "green_glazed_terracotta", "hay_block", "iron_bars", "iron_block", "iron_door", "iron_trapdoor", "jungle_door", "jungle_fence_gate", "ladder", "lapis_block", "leaves", "leaves2", "light_blue_glazed_terracotta", "lime_glazed_terracotta", "lit_pumpkin", "magenta_glazed_terracotta", "melon_block", "mob_spawner", "monster_egg", "nether_brick_fence", "noteblock", "orange_glazed_terracotta", "painting", "pink_glazed_terracotta", "pumpkin", "purple_glazed_terracotta", "red_flower", "red_glazed_terracotta", "red_mushroom", "red_mushroom_block", "redstone_block", "sapling", "sealantern", "shulker_box", "sign", "silver_glazed_terracotta", "skull", "slime", "snow_layer", "sponge", "spruce_door", "spruce_fence_gate", "stonecutter", "tallgrass", "trapdoor", "trapped_chest", "vine", "waterlily", "web", "white_glazed_terracotta", "wooden_door", "wool", "yellow_flower", "yellow_glazed_terracotta"];
 
-//var miscellaneous = ["apple", "appleenchanted", "arrow", "baked_potato", "beef", "beetroot", "beetroot_seeds", "beetroot_soup", "blaze_powder", "blaze_rod", "bone", "book", "bowl", "bread", "brick", "carrot", "carrotonastick", "chicken", "chorus_flower", "chorus_fruit", "chorus_fruit_popped", "chorus_plant", "clay_ball", "clownfish", "coal", "cooked_beef", "cooked_chicken", "cooked_fish", "cooked_porkchop", "cooked_rabbit", "cooked_salmon", "cookie", "diamond", "dragon_breath", "dye", "egg", "emerald", "emptymap", "enchanted_book", "experience_bottle", "feather", "fermented_spider_eye", "fish", "flint", "ghast_tear", "glass_bottle", "glowstone_dust", "gold_ingot", "gold_nugget", "golden_apple", "golden_carrot", "gunpowder", "iron_ingot", "iron_nugget", "leather", "lingering_potion", "magma_cream", "melon", "melon_seeds", "mushroom_stew", "muttoncooked", "muttonraw", "nether_wart", "netherstar", "paper", "poisonous_potato", "porkchop", "potato", "potion", "prismarine_crystals", "prismarine_shard", "pufferfish", "pumpkin_pie", "pumpkin_seeds", "quartz", "rabbit", "rabbit_foot", "rabbit_hide", "rabbit_stew", "reeds", "rotten_flesh", "salmon", "shulker_shell", "slime_ball", "speckled_melon", "spider_eye", "splash_potion", "stick", "string", "sugar", "wheat", "wheat_seeds"];
+var tools = ["activator_rail", "boat", "bow", "bucket", "camera", "chain_command_block", "chainmail_boots", "chainmail_chestplate", "chainmail_helmet", "chainmail_leggings", "chest_minecart", "clock", "command_block", "command_block_minecart", "comparator", "compass", "daylight_detector", "detector_rail", "diamond_axe", "diamond_boots", "diamond_chestplate", "diamond_helmet", "diamond_hoe", "diamond_leggings", "diamond_pickaxe", "diamond_shovel", "diamond_sword", "dispenser", "dropper", "elytra", "ender_eye", "ender_pearl", "fireball", "fishing_rod", "flint_and_steel", "golden_axe", "golden_boots", "golden_chestplate", "golden_helmet", "golden_hoe", "golden_leggings", "golden_pickaxe", "golden_rail", "golden_shovel", "golden_sword", "heavy_weighted_pressure_plate", "hopper", "hopper_minecart", "horsearmordiamond", "horsearmorgold", "horsearmoriron", "horsearmorleather", "iron_axe", "iron_boots", "iron_chestplate", "iron_helmet", "iron_hoe", "iron_leggings", "iron_pickaxe", "iron_shovel", "iron_sword", "lead", "leather_boots", "leather_chestplate", "leather_helmet", "leather_leggings", "lever", "light_weighted_pressure_plate", "minecart", "nametag", "observer", "piston", "portfolio", "rail", "redstone", "redstone_lamp", "redstone_torch", "repeater", "repeating_command_block", "saddle", "shears", "snowball", "spawn_egg", "sticky_piston", "stone_axe", "stone_button", "stone_hoe", "stone_pickaxe", "stone_pressure_plate", "stone_shovel", "stone_sword", "structure_block", "tnt", "tnt_minecart", "torch", "totem", "tripwire_hook", "wooden_axe", "wooden_button", "wooden_hoe", "wooden_pickaxe", "wooden_pressure_plate", "wooden_shovel", "wooden_sword"];
 
-var sixDirections = [[i18n.directionForward(),'forward'],[i18n.directionBack(), 'back'],[i18n.directionLeft(),'left'],[i18n.directionRight(),'right'],[i18n.directionUp(),'up'],[i18n.directionDown(),'down']];
+var miscellaneous = ["apple", "appleenchanted", "arrow", "baked_potato", "beef", "beetroot", "beetroot_seeds", "beetroot_soup", "blaze_powder", "blaze_rod", "bone", "book", "bowl", "bread", "brick", "carrot", "carrotonastick", "chicken", "chorus_flower", "chorus_fruit", "chorus_fruit_popped", "chorus_plant", "clay_ball", "clownfish", "coal", "cooked_beef", "cooked_chicken", "cooked_fish", "cooked_porkchop", "cooked_rabbit", "cooked_salmon", "cookie", "diamond", "dragon_breath", "dye", "egg", "emerald", "emptymap", "enchanted_book", "experience_bottle", "feather", "fermented_spider_eye", "fish", "flint", "ghast_tear", "glass_bottle", "glowstone_dust", "gold_ingot", "gold_nugget", "golden_apple", "golden_carrot", "gunpowder", "iron_ingot", "iron_nugget", "leather", "lingering_potion", "magma_cream", "melon", "melon_seeds", "mushroom_stew", "muttoncooked", "muttonraw", "nether_wart", "netherstar", "paper", "poisonous_potato", "porkchop", "potato", "potion", "prismarine_crystals", "prismarine_shard", "pufferfish", "pumpkin_pie", "pumpkin_seeds", "quartz", "rabbit", "rabbit_foot", "rabbit_hide", "rabbit_stew", "reeds", "rotten_flesh", "salmon", "shulker_shell", "slime_ball", "speckled_melon", "spider_eye", "splash_potion", "stick", "string", "sugar", "wheat", "wheat_seeds"];
 
-var fourDirections = [[i18n.directionForward(),'forward'],[i18n.directionBack(), 'back'],[i18n.directionLeft(),'left'],[i18n.directionRight(),'right']];
+/**
+ * Helper function to create array of key,key
+ * @param {Object[]} items
+ */
+function createItemList(items) {
+  return items.map(function (key) {
+    return [key, key];
+  });
+}
 
-var rotateDirections = [[i18n.directionLeft() + ' \u21BA', 'left'], [i18n.directionRight() + ' \u21BB', 'right']];
+function createBlockList(blocks) {
+  return blocks.map(function (key) {
+    // Need to store name and data in a string because of blockly's restriction
+    return [key, [key + ',0']];
+  });
+}
 
-var positionTypes = [['Relative' , '~'], ['Absolute', '']];
+function getName(blockString) {
+  return blockString.split(',')[0];
+}
 
-var timeTypes = [['Day', 'day'], ['Night', 'night']];
+function getData(blockString) {
+  return blockString.split(',')[1];
+}
 
-var weatherTypes = [['Clear', 'clear'], ['Rain', 'rain'], ['Thunder', 'thunder']];
+// Custom blockly return types
+// tool, decoration, miscellaneous
+const ITEM_TYPE = 'ITEM';
+// block
+const BLOCK_TYPE = 'BLOCK';
+
+const sixDirections = [[i18n.directionForward(),'forward'],[i18n.directionBack(), 'back'],[i18n.directionLeft(),'left'],[i18n.directionRight(),'right'],[i18n.directionUp(),'up'],[i18n.directionDown(),'down']];
+
+const fourDirections = [[i18n.directionForward(),'forward'],[i18n.directionBack(), 'back'],[i18n.directionLeft(),'left'],[i18n.directionRight(),'right']];
+
+const rotateDirections = [[i18n.directionLeft() + ' \u21BA', 'left'], [i18n.directionRight() + ' \u21BB', 'right']];
+
+const positionTypes = [['Relative' , '~'], ['Absolute', '']];
+
+const timeTypes = [['Day', 'day'], ['Night', 'night']];
+
+const weatherTypes = [['Clear', 'clear'], ['Rain', 'rain'], ['Thunder', 'thunder']];
+
 
 function createBlockPos(x, y, z, prefix) {
     return encodeURIComponent(`${prefix}${x} ${prefix}${y} ${prefix}${z}`);
@@ -131,21 +165,36 @@ export const install = (blockly, blockInstallOptions) => {
     return `destroy('block_id_${this.id}','${dir}');`;
   };
 
-  blockly.Blocks.craft_collect = {
+  blockly.Blocks.craft_collectall = {
     helpUrl: '',
     init: function () {
       this.setHSV(184, 1.00, 0.74);
       this.appendDummyInput()
-          .appendTitle(new blockly.FieldLabel(i18n.blockActionCollect()))
-          .appendTitle(new blockly.FieldTextInput('all'), 'ITEM');
+          .appendTitle(new blockly.FieldLabel(i18n.blockActionCollectAll()));
+      this.setPreviousStatement(true);
+      this.setNextStatement(true);
+    }
+  };
+
+  blockly.JavaScript.craft_collectall = function () {
+    return `collectall('block_id_${this.id}');`;
+  };
+
+  blockly.Blocks.craft_collect = {
+    helpUrl: '',
+    init: function () {
+      this.setHSV(184, 1.00, 0.74);
+      this.appendValueInput('ITEM')
+          .setCheck([BLOCK_TYPE, ITEM_TYPE])
+          .appendTitle(new blockly.FieldLabel(i18n.blockActionCollect()));
       this.setPreviousStatement(true);
       this.setNextStatement(true);
     }
   };
 
   blockly.JavaScript.craft_collect = function () {
-    var item = this.getTitleValue('ITEM');
-    return `collect('block_id_${this.id}','${item}');`;
+    var itemName = Blockly.JavaScript.valueToCode(this, 'ITEM', Blockly.JavaScript.ORDER_NONE);
+    return `collect('block_id_${this.id}',${itemName});`;
   };
 
   blockly.Blocks.craft_drop = {
@@ -213,7 +262,7 @@ export const install = (blockly, blockInstallOptions) => {
       this.appendDummyInput()
           .appendTitle(new blockly.FieldLabel(i18n.blockActionInspect()))
           .appendTitle(new blockly.FieldDropdown(sixDirections), 'DIR');
-      this.setOutput(true, Blockly.BlockValueType.STRING);
+      this.setOutput(true, Blockly.JavaScript.STRING);
     }
   };
 
@@ -620,4 +669,110 @@ export const install = (blockly, blockInstallOptions) => {
     var amount = this.getTitleValue('AMOUNT');
     return `give('block_id_${this.id}','${player}','${item}','${amount}');`;
   };
+
+  blockly.Blocks.craft_createblock = {
+    init: function () {
+      this.setHSV(184, 1.00, 0.74);
+      this.appendValueInput('BLOCKTYPE')
+          .setCheck(Blockly.JavaScript.STRING)
+          .appendTitle(new blockly.FieldLabel(i18n.blockType()));
+      this.appendValueInput('BLOCKDATA')
+          .setCheck(Blockly.JavaScript.STRING)
+          .appendTitle(new blockly.FieldLabel(i18n.blockData()));
+      this.setOutput(true, BLOCK_TYPE);
+    }
+  };
+
+  blockly.JavaScript.craft_createblock = function () {
+    var blockType = this.getTitleValue('BLOCKTYPE');
+    var blockData = this.getTitleValue('BLOCKDATA');
+    return [`block('block_id_${this.id}','${blockType}','${blockData}')`, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  };
+
+  blockly.Blocks.craft_block = {
+    init: function () {
+      this.setHSV(184, 1.00, 0.74);
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldDropdown(createBlockList(blocks)),'BLOCK');
+      this.setOutput(true, BLOCK_TYPE);
+    }
+  };
+
+  blockly.JavaScript.craft_block = function () {
+    var block = this.getTitleValue('BLOCK');
+    return [`block('block_id_${this.id}','${getName(block)}','${getData(block)}')`, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  };
+
+  blockly.Blocks.craft_miscellaneous = {
+    init: function () {
+      this.setHSV(184, 1.00, 0.74);
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldDropdown(createItemList(miscellaneous)),'ITEM');
+      this.setOutput(true, ITEM_TYPE);
+    }
+  };
+
+  blockly.JavaScript.craft_miscellaneous = function () {
+    var item = this.getTitleValue('ITEM');
+    return [`item('block_id_${this.id}','${item}')`, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  };
+
+  blockly.Blocks.craft_decoration = {
+    init: function () {
+      this.setHSV(184, 1.00, 0.74);
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldDropdown(createItemList(decorations)),'ITEM');
+      this.setOutput(true, ITEM_TYPE);
+    }
+  };
+
+  blockly.JavaScript.craft_decoration = function () {
+    var item = this.getTitleValue('ITEM');
+    return [`item('block_id_${this.id}','${item}')`, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  };
+
+  blockly.Blocks.craft_tool = {
+    init: function () {
+      this.setHSV(184, 1.00, 0.74);
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldDropdown(createItemList(tools)),'ITEM');
+      this.setOutput(true, ITEM_TYPE);
+    }
+  };
+
+  blockly.JavaScript.craft_tool = function () {
+    var item = this.getTitleValue('ITEM');
+    return [item, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  };
+
+  blockly.Blocks.craft_getnameofblock = {
+    init: function () {
+      this.setHSV(184, 1.00, 0.74);
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldLabel('Get name of block'))
+          .appendTitle(new blockly.FieldDropdown(createBlockList(blocks)),'BLOCK');
+      this.setOutput(true, Blockly.JavaScript.STRING);
+    }
+  };
+
+  blockly.JavaScript.craft_getnameofblock = function () {
+      var block = this.getTitleValue('BLOCK');
+      return [`item('block_id_${this.id}','${getName(block)}')`, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  };
+
+  blockly.Blocks.craft_getdataofblock = {
+    init: function () {
+      this.setHSV(184, 1.00, 0.74);
+      this.appendDummyInput()
+          .appendTitle(new blockly.FieldLabel('Get data of block'))
+          .appendTitle(new blockly.FieldDropdown(createBlockList(blocks)),'BLOCK');
+      this.setOutput(true, Blockly.JavaScript.STRING);
+    }
+  };
+
+  blockly.JavaScript.craft_getdataofblock = function () {
+      var block = this.getTitleValue('BLOCK');
+      return [`item('block_id_${this.id}','${getData(block)}')`, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  };
+
 };

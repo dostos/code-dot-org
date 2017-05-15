@@ -45,6 +45,17 @@ const preloadImage = function (url) {
 };
 
 /**
+ * Try to get name from input
+ * @param {any} input
+ */
+function getItemName(input) {
+  if (input.hasOwnProperty('name')) {
+    input = input['name'];
+  }
+  return input;
+}
+
+/**
  * Initialize Blockly and the Craft app. Called on page load.
  */
 Craft.init = function (config) {
@@ -132,7 +143,7 @@ Craft.executeUserCode = function () {
    * @param {number} blockID blockly block id
    * @param {string} commandName name of the command
    * @param {string} resultKey key for result value
-   * @param {array} inputPairs array of input key-value pairs
+   * @param {Object[]} inputPairs array of input key-value pairs
    * @param {function} callback callback that reports execution result
    */
   function createAsyncRequestBlock(blockID, commandName, resultKey, inputPairs, callback) {
@@ -158,7 +169,7 @@ Craft.executeUserCode = function () {
     }, resultKey);
   }
 
-  const evalApiMethods = {
+  const asyncMethods = {
     move: function (blockID, direction, callback) {
       createAsyncRequestBlock(blockID, 'move', 'success', { 'direction': direction }, callback);
     },
@@ -178,7 +189,10 @@ Craft.executeUserCode = function () {
       createAsyncRequestBlock(blockID, 'destroy', 'success', { 'direction': direction }, callback);
     },
     collect: function (blockID, item, callback) {
-      createAsyncRequestBlock(blockID, 'collect', 'success', { 'item': item }, callback);
+      createAsyncRequestBlock(blockID, 'collect', 'success', { 'item': getItemName(item) }, callback);
+    },
+    collectall: function (blockID, callback) {
+      createAsyncRequestBlock(blockID, 'collect', 'success', { 'item': 'all'}, callback);
     },
     drop: function (blockID, slotNum, quantity, direction, callback) {
       createAsyncRequestBlock(blockID, 'drop', 'success', { 'slotNum': slotNum, 'quantity': quantity, 'direction': direction }, callback);
@@ -249,7 +263,19 @@ Craft.executeUserCode = function () {
     }
   };
 
-  // Use values of evalApiMethods because there is no exception
-  codegen.asyncFunctionList = Object.values(evalApiMethods);
-  interpreter = codegen.evalWith(code, evalApiMethods);
+  const methods = {
+    block: function (blockID, name, data) {
+      studioApp().highlight(blockID);
+      return { 'name': name, 'data': data };
+    },
+
+    item: function (blockID, name) {
+      studioApp().highlight(blockID);
+      return name;
+    }
+  };
+
+  // Register async methods
+  codegen.asyncFunctionList = Object.values(asyncMethods);
+  interpreter = codegen.evalWith(code, Object.assign(asyncMethods, methods));
 };
