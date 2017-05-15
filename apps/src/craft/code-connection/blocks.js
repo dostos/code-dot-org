@@ -21,7 +21,7 @@ function createItemList(items) {
 function createBlockList(blocks) {
   return blocks.map(function (key) {
     // Need to store name and data in a string because of blockly's restriction
-    return [key, [key + ',0']];
+    return [key, key + ',0'];
   });
 }
 
@@ -45,11 +45,11 @@ const fourDirections = [[i18n.directionForward(),'forward'],[i18n.directionBack(
 
 const rotateDirections = [[i18n.directionLeft() + ' \u21BA', 'left'], [i18n.directionRight() + ' \u21BB', 'right']];
 
-const positionTypes = [['Relative' , '~'], ['Absolute', '']];
+const positionTypes = [[i18n.relative() , '~'], [i18n.absolute(), '']];
 
-const timeTypes = [['Day', 'day'], ['Night', 'night']];
+const timeTypes = [[i18n.timeDay(), 'day'], [i18n.timeNight(), 'night']];
 
-const weatherTypes = [['Clear', 'clear'], ['Rain', 'rain'], ['Thunder', 'thunder']];
+const weatherTypes = [[i18n.weatherTypeClear(), 'clear'], [i18n.weatherTypeRain(), 'rain'], [i18n.weatherTypeThunder(), 'thunder']];
 
 
 function createBlockPos(x, y, z, prefix) {
@@ -471,10 +471,8 @@ export const install = (blockly, blockInstallOptions) => {
           .appendTitle(new blockly.FieldTextInput('0', blockly.FieldTextInput.numberValidator), 'Y')
           .appendTitle(new blockly.FieldTextInput('0', blockly.FieldTextInput.numberValidator), 'Z');
       this.appendDummyInput()
-          .appendTitle(new blockly.FieldLabel('if a block type'))
-          .appendTitle(new blockly.FieldTextInput(''), 'BLOCKTYPE')
-          .appendTitle(new blockly.FieldLabel('with data'))
-          .appendTitle(new blockly.FieldTextInput('0', blockly.FieldTextInput.numberValidator), 'BLOCKDATA');
+          .appendTitle(new blockly.FieldLabel('if'))
+          .appendTitle(new blockly.FieldDropdown(createBlockList(blocks)),'BLOCK');
       this.appendDummyInput()
           .appendTitle(new blockly.FieldLabel('detected at'))
           .appendTitle(new blockly.FieldDropdown(positionTypes), 'BLOCKPOSITIONTYPE')
@@ -492,15 +490,14 @@ export const install = (blockly, blockInstallOptions) => {
     var x = this.getTitleValue('X');
     var y = this.getTitleValue('Y');
     var z = this.getTitleValue('Z');
-    var blockType = this.getTitleValue('BLOCKTYPE');
-    var blockData = this.getTitleValue('BLOCKDATA');
+    var block = this.getTitleValue('BLOCK');
     var blockPositionType = this.getTitleValue('BLOCKPOSITIONTYPE');
     var blockX = this.getTitleValue('BLOCK_X');
     var blockY = this.getTitleValue('BLOCK_Y');
     var blockZ = this.getTitleValue('BLOCK_Z');
     var command = this.getTitleValue('COMMAND');
     return `executedetect('block_id_${this.id}','${target}','${createBlockPos(x, y, z, positionType)}',
-    '${blockType}','${blockData}','${createBlockPos(blockX, blockY, blockZ, blockPositionType)}','${command}');`;
+    '${getName(block)}','${getData(block)}','${createBlockPos(blockX, blockY, blockZ, blockPositionType)}','${command}');`;
   };
 
   blockly.Blocks.craft_timesetbyname = {
@@ -623,10 +620,7 @@ export const install = (blockly, blockInstallOptions) => {
           .appendTitle(new blockly.FieldTextInput('0', blockly.FieldTextInput.numberValidator), 'TO_Y')
           .appendTitle(new blockly.FieldTextInput('0', blockly.FieldTextInput.numberValidator), 'TO_Z');
       this.appendDummyInput()
-          .appendTitle(new blockly.FieldLabel(i18n.blockType()))
-          .appendTitle(new blockly.FieldTextInput(''), 'BLOCKTYPE')
-          .appendTitle(new blockly.FieldLabel(i18n.tileData()))
-          .appendTitle(new blockly.FieldTextInput('0', blockly.FieldTextInput.numberValidator), 'BLOCKDATA');
+          .appendTitle(new blockly.FieldDropdown(createBlockList(blocks)),'BLOCK');
       this.setPreviousStatement(true);
       this.setNextStatement(true);
     }
@@ -641,9 +635,8 @@ export const install = (blockly, blockInstallOptions) => {
     var toX = this.getTitleValue('TO_X');
     var toY = this.getTitleValue('TO_Y');
     var toZ = this.getTitleValue('TO_Z');
-    var blockType = this.getTitleValue('BLOCKTYPE');
-    var blockData = this.getTitleValue('BLOCKDATA');
-    return `fill('block_id_${this.id}','${createBlockPos(fromX, fromY, fromZ, fromPositionType)}','${createBlockPos(toX, toY, toZ, toPositionType)}','${blockType}','${blockData}');`;
+    var block = this.getTitleValue('BLOCK');
+    return `fill('block_id_${this.id}','${createBlockPos(fromX, fromY, fromZ, fromPositionType)}','${createBlockPos(toX, toY, toZ, toPositionType)}','${getName(block)}','${getData(block)}');`;
   };
 
   blockly.Blocks.craft_give = {
