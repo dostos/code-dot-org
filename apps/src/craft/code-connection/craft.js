@@ -8,6 +8,7 @@ import AppView from '../../templates/AppView';
 import CraftVisualizationColumn from './CraftVisualizationColumn';
 import {getStore} from '../../redux';
 import cc_client from './cc-client';
+import items from './items';
 
 const MEDIA_URL = '/blockly/media/craft/';
 
@@ -75,6 +76,13 @@ Craft.init = function (config) {
     studioApp().init({
       ...config,
       enableShowCode: false,
+    });
+
+    var itemTypeKeys = Object.keys(items);
+    itemTypeKeys.forEach(function (itemType) {
+      items[itemType].forEach(function (item) {
+        preloadImage(item[0]);
+      });
     });
 
     COMMON_UI_ASSETS.forEach(function (url) {
@@ -259,19 +267,14 @@ Craft.executeUserCode = function () {
       createAsyncRequestBlock(blockID, 'fill', 'success', { 'from': from, 'to': to, 'tileName': tileName, 'tileData': tileData }, callback);
     },
     give: function (blockID, player, item, amount, callback) {
-      createAsyncRequestBlock(blockID, 'give', 'success', { 'player': player, 'item': item, 'amount': amount }, callback);
+      createAsyncRequestBlock(blockID, 'give', 'success', { 'player': player, 'itemName': item['name'], 'data':item['data'], 'amount': amount }, callback);
     }
   };
 
   const methods = {
-    block: function (blockID, name, data) {
+    item: function (blockID, name, data) {
       studioApp().highlight(blockID);
       return { 'name': name, 'data': data };
-    },
-
-    item: function (blockID, name) {
-      studioApp().highlight(blockID);
-      return name;
     }
   };
 

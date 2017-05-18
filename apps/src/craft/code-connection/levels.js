@@ -21,11 +21,12 @@ module.exports = {
       category('Blocks',
         category('Agent',
           craftBlock('move') +
-          craftBlock('inspect') +
-          craftBlock('place') +
           craftBlock('turn') +
-          craftBlock('till') +
+          craftBlock('tptoplayer') +
+          craftBlock('place') +
           craftBlock('destroy') +
+          craftBlock('till') +
+          craftBlock('attack') +
           craftBlock('collect') +
           craftBlock('collectall') +
           craftBlock('drop') +
@@ -33,27 +34,26 @@ module.exports = {
           craftBlock('detect') +
           craftBlock('inspect') +
           craftBlock('inspectdata') +
-          craftBlock('detectredstone') +
           craftBlock('getitemdetail') +
           craftBlock('getitemspace') +
           craftBlock('getitemcount') +
           craftBlock('transfer') +
-          craftBlock('tptoplayer')) +
+          craftBlock('detectredstone')) +
         category('Item',
           craftBlock('block') +
           craftBlock('miscellaneous') +
           craftBlock('tool') +
           craftBlock('decoration') +
-          craftBlock('getnameofblock') +
-          craftBlock('getdataofblock') +
+          craftBlock('getnameof') +
+          craftBlock('getdataof') +
           craftBlock('createblock', `<value name='BLOCKTYPE'>${block('text')}</value><value name='BLOCKDATA'>${block('text')}</value>`)
         ) +
-        craftBlock('tptotarget') +
-        craftBlock('tptopos') +
-        craftBlock('fill') +
-        craftBlock('give') +
         craftBlock('executeasother') +
         craftBlock('executedetect') +
+        craftBlock('fill') +
+        craftBlock('give') +
+        craftBlock('tptotarget') +
+        craftBlock('tptopos') +
         craftBlock('timesetbyname') +
         craftBlock('timesetbynumber') +
         craftBlock('weather') +
